@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sistema Solar (MDS "Site Mozilla")</title>
+</head>
+<body>
+	<canvas id="canvas" style="border: 2px solid #000" width="300" height="300">
+		<p>Seu navegador não suporta a tecnologia canvas</p>
+	</canvas>
+	
+	<script>
+	var sun = new Image();
+	var moon = new Image();
+	var earth = new Image();
+	
+	init();
+	
+	function init()
+	{
+	sun.src = "https://mdn.mozillademos.org/files/1456/Canvas_sun.png";
+	moon.src = "https://mdn.mozillademos.org/files/1443/Canvas_moon.png";
+	earth.src = "https://mdn.mozillademos.org/files/1429/Canvas_earth.png";
+	
+	window.requestAnimationFrame(draw);
+	}
+	
+	function draw()
+	{
+		var canvas = document.getElementById("canvas");
+		
+		var ctx = canvas.getContext("2d");
+		
+		//Seta o tipo de composição dos objetos
+		//Composição = Forma de "mesclar" as cores do desenho
+		ctx.globalCompositeOperation = "destination-over";
+		
+		//Limpa o canvas retornando as configurações anteriores nas coordenadas informadas
+		//Posição inicial de x e y
+		//Posição final de x e y
+		//Neste exemplo limpa o canvas por completo
+		ctx.clearRect(0,0,300,300);
+		
+		//Seta um padrão de cores
+		//Fundo preto com opacidade de 40%
+		ctx.fillStyle = "rgba(0,0,0,0.4)";
+		
+		ctx.strokeStyle = "rgba(0,153,255,0.5)";
+		ctx.save();
+		
+		//mova o objeto para a posição de x e y
+		ctx.translate(150,150);
+		
+		var time = new Date();
+	
+		//Desenhar a imagem da terra
+		//Realiza a rotação do objeto na tela de acordo com os calculos
+		ctx.rotate(((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds() );
+		
+		//Move o objeto
+		ctx.translate(105,0);
+		
+		//Desenho a imagem da terra no canvas
+		ctx.drawImage(earth, -12, -12);
+		
+		ctx.save();
+		//Fim desenho da terra
+		
+		ctx.rotate(((2*Math.PI)/6)*time.getSeconds() + ((2*Math.PI)/6000)*time.getMilliseconds() );
+		
+		ctx.translate(0,28.5);
+		
+		ctx.drawImage(moon, -3.5,-3.5);
+		
+		ctx.restore();
+		
+		ctx.restore();
+		
+		ctx.beginPath();
+		
+		//Orbita da terra
+		ctx.arc(150,150,105,0,Math.PI*2, false);
+		
+		ctx.stroke();
+		//Fim do desenho da lua
+		
+		ctx.drawImage(sun,0,0,300,300);
+		
+		window.requestAnimationFrame(draw);
+	}
+	</script>
+
+	
+</body>
+
+</html>
