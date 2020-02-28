@@ -1,0 +1,28 @@
+body{
+    background-color: black !important;
+    font-family: 'Audiowide', sans-serif !important;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.title{
+    color: white;
+    margin-bottom: 37px;
+}
+.content{
+    width: 500px;
+}
+#canvas{
+   margin-left: 97px;
+   margin-right: 97px;
+}
+.footer{
+    margin-top: 20px;
+}
+.footer_texts{
+    font-size: 22px;
+    color: white;
+}
